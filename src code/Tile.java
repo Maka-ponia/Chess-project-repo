@@ -7,7 +7,7 @@ public abstract class Tile {
 
     public abstract boolean isTileOccupied();
 
-    public abstract Object getPiece();
+    public abstract Piece getPiece();
 
     public static final class EmptyTile extends Tile {
 
@@ -21,7 +21,7 @@ public abstract class Tile {
         }
 
         @Override
-        public Object getPiece() {
+        public Piece getPiece() {
             return null;
         }
 
