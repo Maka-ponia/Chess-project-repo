@@ -5,14 +5,16 @@ public abstract class Tile {
         this.tileCoords = tileCoords;
     }
 
+    // Returns if a tile is Occupied
     public abstract boolean isTileOccupied();
 
+    // Returns the piece on tile
     public abstract Piece getPiece();
 
     public static final class EmptyTile extends Tile {
 
-        EmptyTile(int coords) {
-            super(coords);
+        EmptyTile(int tileCoords) {
+            super(tileCoords);
         }
 
         @Override
@@ -24,7 +26,6 @@ public abstract class Tile {
         public Piece getPiece() {
             return null;
         }
-
     }
 
     public static final class OccupiedTile extends Tile {
