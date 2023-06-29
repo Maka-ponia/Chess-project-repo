@@ -1,5 +1,6 @@
 package com.chess.engine.board;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -50,13 +51,13 @@ public abstract class Tile {
         // which would prevent EmptyTileMap from being edited when referenced. I couldnt
         // be dammed to downlad
         // the libary and figure out how to use the libary so ill just wait for lab dem
-        // help.
-        return EmptyTileMap;
+        // help otherwise this should do the same thing.
+        return Collections.unmodifiableMap(EmptyTileMap);
     }
 
     public static final class EmptyTile extends Tile {
 
-        EmptyTile(final int tileCoords) {
+        private EmptyTile(final int tileCoords) {
             super(tileCoords);
         }
 
