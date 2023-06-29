@@ -1,4 +1,4 @@
-package com.chess.engine.Pieces;
+package com.chess.engine.pieces;
 
 import java.util.List;
 import com.chess.engine.Alliance;
@@ -12,6 +12,12 @@ public abstract class Piece {
     Piece(final int pieceCoords, final Alliance pieceSide) {
         this.pieceCoords = pieceCoords;
         this.pieceSide = pieceSide;
-}
-public abstract List<Move> calcLegalmMoves(final Board board);
+    }
+
+    public Alliance getPieceSide() {
+        return this.pieceSide;
+    }
+
+    // A method that calculates the leagal moves of a piece
+    public abstract List<Move> calcLegalmMoves(final Board board);
 }
