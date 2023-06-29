@@ -20,6 +20,13 @@ public abstract class Tile {
     public abstract Piece getPiece();
 
     public static Tile createTle(final int titleCoordinate, final Piece piece) {
+        // In the og design the return statments would use a ? opperation where there
+        // would be
+        // a condition given and depending on if it was true or false woud retuen
+        // different things
+        // I used and if and else statment cause i am more familar with it and makes
+        // more sense
+        // semantically to me.
         if (piece != null) {
 
             return new OccupiedTile(titleCoordinate, piece);
