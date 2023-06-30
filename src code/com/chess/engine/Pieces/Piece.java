@@ -19,5 +19,5 @@ public abstract class Piece {
     }
 
     // A method that calculates the leagal moves of a piece
-    public abstract List<Move> calcLegalmMoves(final Board board);
+    public abstractCollection<Move> calcLegalmMoves(final Board board);
 }
