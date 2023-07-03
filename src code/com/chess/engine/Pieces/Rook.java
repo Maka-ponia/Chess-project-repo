@@ -12,7 +12,7 @@ import com.chess.engine.board.Move.AtkMove;
 import com.chess.engine.board.Move.MajorMove;
 import com.chess.engine.board.Tile;
 
-public class Bishop extends Piece {
+public class Rook extends Piece {
 
     // if we image a 8X8 board with the top left being 1 counting left to right then
     // these numbers
@@ -20,13 +20,13 @@ public class Bishop extends Piece {
     // to
     // i.e Bishop coords : 31 then the BishopPossMoves = Bishop coords +
     // possibleCoordsOffsets(i)
-    private final static int[] possibleCoordsOffsets = { -9, -7, 7, 9 };
+    private final static int[] possibleCoordsOffsets = { -8, -1, 1, 8 };
 
-    Bishop(int pieceCoords, Alliance pieceSide) {
+    Rook(int pieceCoords, Alliance pieceSide) {
         super(pieceCoords, pieceSide);
     }
 
-    // Creates a collection of Moves that the Bishop can do based of its current
+    // Creates a collection of Moves that the Rook can do based of its current
     // postion.
     // Stores the piece current position in possibleNextMoveCoords and has one of
     // the offset
@@ -83,18 +83,16 @@ public class Bishop extends Piece {
         return null;
     }
 
-    // Is used to check if the Bishop on the first column are able to move to
+    // Is used to check if the Rook on the first column are able to move to
     // certian possitions
     private static boolean isFirstColumnExlusion(final int currentCoords, final int possibleOffset) {
-        return BoardUtils.FirstColumn[currentCoords]
-                && (possibleOffset == -9 || possibleOffset == 7);
+        return BoardUtils.FirstColumn[currentCoords] && (possibleOffset == -1);
     }
 
-    // Is used to check if the Bishop on the eigthth column are able to move to
+    // Is used to check if the Rook on the eigthth column are able to move to
     // certian possitions
     private static boolean isEightThColumnExlusion(final int currentCoords, final int possibleOffset) {
-        return BoardUtils.EightthColumn[currentCoords]
-                && (possibleOffset == -7 || possibleOffset == 9);
+        return BoardUtils.EightthColumn[currentCoords] && (possibleOffset == 1);
     }
 
 }
