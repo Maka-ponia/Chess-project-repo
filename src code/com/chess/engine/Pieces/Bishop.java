@@ -2,6 +2,7 @@ package com.chess.engine.pieces;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import com.chess.engine.Alliance;
@@ -49,7 +50,7 @@ public class Bishop extends Piece {
     // to the coords of the Bishop to repeat the proccess all over.
     @Override
     public Collection<Move> calcLegalmMoves(final Board board) {
-        final List<Move> legalMoves = new ArrayList<>();
+        final Collection<Move> legalMoves = new ArrayList<>();
 
         for (final int currentOffset : possibleCoordsOffsets) {
             int possibleNextMoveCoords = this.pieceCoords;
@@ -80,7 +81,7 @@ public class Bishop extends Piece {
                 }
             }
         }
-        return null;
+        return Collections.unmodifiableCollection(legalMoves);
     }
 
     // Is used to check if the Bishop on the first column are able to move to
