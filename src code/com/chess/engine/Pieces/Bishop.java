@@ -3,7 +3,6 @@ package com.chess.engine.pieces;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 
 import com.chess.engine.Alliance;
 import com.chess.engine.board.Board;

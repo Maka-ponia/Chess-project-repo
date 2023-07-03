@@ -13,6 +13,13 @@ import com.chess.engine.board.Move.MajorMove;
 import com.chess.engine.board.Tile;
 
 public class Queen extends Piece {
+
+    // if we image a 8X8 board with the top left being 1 counting left to right then
+    // these numbers
+    // plus the Queen current coord are each position that the Queen could jump
+    // to
+    // i.e Queen coords : 31 then the QueenPossMoves = knght coords +
+    // possibleCoordsOffsets(i)
     private final static int[] possibleCoordsOffsets = { -9, -8, -7, -1, 9, 8, 7, 1 };
 
     Queen(int pieceCoords, Alliance pieceSide) {
