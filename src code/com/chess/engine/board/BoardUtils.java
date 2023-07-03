@@ -22,6 +22,7 @@ public class BoardUtils {
     // on which column is used
     private static boolean[] intColumn(int columnNumber) {
         final boolean[] column = new boolean[64];
+
         do {
             column[columnNumber] = true;
             columnNumber += 8;

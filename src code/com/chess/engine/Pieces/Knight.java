@@ -26,7 +26,21 @@ public class Knight extends Piece {
         super(pieceCoords, pieceSide);
     }
 
-    @Override
+    // Creates a collection of Moves that the knight can do based of its current
+    // postion.
+    // Gets the Knghts current cords and applies the offset to it i.e
+    // possibleNextMoveCoords.
+    // After checks if possibleNextMoveCoords is a vaild tile coord. If it is a
+    // vaild tile coord
+    // then we look at the title and check it. If the tile is not Occupied then a
+    // major move
+    // i.e Moving from one tile to another, is added to the list of possible moves.
+    // If it is
+    // occupied then an attack move i.e replaceing the enemy piece at the
+    // possibleNextMoveCoords,
+    // is added to the list of possible moves. This is done for each offset against
+    // the piece
+    // current coors.
     public Collection<Move> calcLegalmMoves(final Board board) {
         Collection<Move> legalMoves = new ArrayList<>();
 
@@ -34,7 +48,6 @@ public class Knight extends Piece {
             final int possibleNextMoveCoords = this.pieceCoords + currentOffset;
 
             if (BoardUtils.isValidTileCoord(possibleNextMoveCoords)) {
-                final Tile possibleNextMoveTile = board.getTile(possibleNextMoveCoords);
 
                 if (isFirstColumnExlusion(this.pieceCoords, currentOffset)
                         || isSecondColumnExlusion(this.pieceCoords, currentOffset)
@@ -42,6 +55,8 @@ public class Knight extends Piece {
                         || isEightthColumnExlusion(this.pieceCoords, currentOffset)) {
                     continue;
                 }
+
+                final Tile possibleNextMoveTile = board.getTile(possibleNextMoveCoords);
 
                 if (!possibleNextMoveTile.isTileOccupied()) {
                     legalMoves.add(new MajorMove(board, this, possibleNextMoveCoords));
