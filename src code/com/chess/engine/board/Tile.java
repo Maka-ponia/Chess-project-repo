@@ -4,13 +4,13 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.chess.engine.Pieces.Piece;
+import com.chess.engine.pieces.Piece;
 
 public abstract class Tile {
     protected final int tileCoords;
     private static final Map<Integer, EmptyTile> EmptyTileMap = createAllPossEmptyTile();
 
-    private Tile(int tileCoords) {
+    private Tile(final int tileCoords) {
         this.tileCoords = tileCoords;
     }
 
@@ -40,11 +40,12 @@ public abstract class Tile {
     }
 
     private static Map<Integer, EmptyTile> createAllPossEmptyTile() {
-
         final Map<Integer, EmptyTile> EmptyTileMap = new HashMap<>();
 
-        for (int index = 0; index < 64; index++) {
+        for (int index = 0; index < BoardUtils.numTitles; index++) {
+
             EmptyTileMap.put(index, new EmptyTile(index));
+
         }
         // In the og design the method would return a ImuntableMap.copyOf(EmptyTileMap)
         // version of EmptyTileMap
@@ -76,7 +77,7 @@ public abstract class Tile {
 
         private final Piece pieceOnTile;
 
-        OccupiedTile(int tileCoords, Piece pieceOnTile) {
+        OccupiedTile(int tileCoords, final Piece pieceOnTile) {
             super(tileCoords);
             this.pieceOnTile = pieceOnTile;
         }

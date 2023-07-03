@@ -1,13 +1,16 @@
 package com.chess.engine.pieces;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 
 import com.chess.engine.Alliance;
 import com.chess.engine.board.Board;
+import com.chess.engine.board.BoardUtils;
 import com.chess.engine.board.Move;
 import com.chess.engine.board.Tile;
+import com.chess.engine.board.Move.AtkMove;
+import com.chess.engine.board.Move.MajorMove;
 
 public class Knight extends Piece {
 
@@ -16,41 +19,71 @@ public class Knight extends Piece {
     // plus the Knights current coord are each position that the knight could jump
     // to
     // i.e knight coords : 31 then the knighPossMoves = knght coords +
-    // possibleMoveCoords(i)
-    private final static int[] possibleMoveCoords = { -17, -15, -10, -6, 6, 10, 15, 17 };
+    // possibleCoordsOffsets(i)
+    private final static int[] possibleCoordsOffsets = { -17, -15, -10, -6, 6, 10, 15, 17 };
 
     Knight(int pieceCoords, Alliance pieceSide) {
         super(pieceCoords, pieceSide);
     }
 
     @Override
-    public List<Move> calcLegalmMoves(Board board) {
+    public Collection<Move> calcLegalmMoves(final Board board) {
+        Collection<Move> legalMoves = new ArrayList<>();
 
-        int possibleNextMoveCoords;
-        List<Move> legalMoves = new ArrayList<>();
+        for (final int currentOffset : possibleCoordsOffsets) {
+            final int possibleNextMoveCoords = this.pieceCoords + currentOffset;
 
-        for (final int currentPossMoveCoords : possibleMoveCoords) {
-
-            possibleNextMoveCoords = this.pieceCoords + currentPossMoveCoords;
-
-            if (true) {
-
+            if (BoardUtils.isValidTileCoord(possibleNextMoveCoords)) {
                 final Tile possibleNextMoveTile = board.getTile(possibleNextMoveCoords);
+
+                if (isFirstColumnExlusion(this.pieceCoords, currentOffset)
+                        || isSecondColumnExlusion(this.pieceCoords, currentOffset)
+                        || isSeventhColumnExlusion(this.pieceCoords, currentOffset)
+                        || isEightthColumnExlusion(this.pieceCoords, currentOffset)) {
+                    continue;
+                }
+
                 if (!possibleNextMoveTile.isTileOccupied()) {
-                    legalMoves.add(new Move());
+                    legalMoves.add(new MajorMove(board, this, possibleNextMoveCoords));
                 }
 
                 else {
-
                     final Piece pieceAtDestination = possibleNextMoveTile.getPiece();
                     final Alliance pieceSide = pieceAtDestination.getPieceSide();
 
                     if (this.pieceSide != pieceSide) {
-                        legalMoves.add(new Move());
+                        legalMoves.add(new AtkMove(board, this, pieceAtDestination, possibleNextMoveCoords));
                     }
                 }
             }
         }
-        return Collections.unmodifiableList(legalMoves);
+        return Collections.unmodifiableCollection(legalMoves);
     }
+
+    // Is used to check if the knights on the first column are able to move to
+    // certian possitions
+    private static boolean isFirstColumnExlusion(final int currentCoords, final int possibleOffset) {
+        return BoardUtils.FirstColumn[currentCoords]
+                && (possibleOffset == -17 || possibleOffset == -10 || possibleOffset == 6 || possibleOffset == 15);
+    }
+
+    // Is used to check if the knights on the second column are able to move to
+    // certian possitions
+    private static boolean isSecondColumnExlusion(final int currentCoords, final int possibleOffset) {
+        return BoardUtils.SecondColumn[currentCoords] && (possibleOffset == -10 || possibleOffset == 6);
+    }
+
+    // Is used to check if the knights on the seventh column are able to move to
+    // certian possitions
+    private static boolean isSeventhColumnExlusion(final int currentCoords, final int possibleOffset) {
+        return BoardUtils.SeventhColumn[currentCoords] && (possibleOffset == -16 || possibleOffset == 10);
+    }
+
+    // Is used to check if the knights on the eightth column are able to move to
+    // certian possitions
+    private static boolean isEightthColumnExlusion(final int currentCoords, final int possibleOffset) {
+        return BoardUtils.EightthColumn[currentCoords]
+                && (possibleOffset == -15 || possibleOffset == -6 || possibleOffset == 10 || possibleOffset == 17);
+    }
+
 }
