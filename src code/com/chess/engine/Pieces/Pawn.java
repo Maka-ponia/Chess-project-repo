@@ -2,6 +2,7 @@ package com.chess.engine.pieces;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 
 import com.chess.engine.Alliance;
 import com.chess.engine.board.Board;
@@ -17,7 +18,7 @@ public class Pawn extends Piece {
     // to
     // i.e Pawn coords : 31 then the PawnPossMoves = Pawn coords +
     // possibleCoordsOffsets(i)
-    private final static int[] possibleCoordsOffsets = { 8 };
+    private final static int[] possibleCoordsOffsets = { 8, 16, 7, 9 };
 
     Pawn(int pieceCoords, final Alliance pieceSide) {
         super(pieceCoords, pieceSide);
@@ -46,9 +47,29 @@ public class Pawn extends Piece {
                         && !board.getTile(possibleNextMoveCoords).isTileOccupied()) {
                     legalMoves.add(new MajorMove(board, this, possibleNextMoveCoords));
                 }
+
+            } else if (currentOffset == 7 && !(BoardUtils.EightthColumn[this.pieceCoords] && this.pieceSide.isWhite())
+                    || (BoardUtils.FirstColumn[this.pieceCoords] && this.pieceSide.isBlack())) {
+                if (board.getTile(possibleNextMoveCoords).isTileOccupied()) {
+                    final Piece pieceOnPossibleTile = board.getTile(possibleNextMoveCoords).getPiece();
+
+                    if (pieceOnPossibleTile.getPieceSide() != this.pieceSide) {
+                        legalMoves.add(new MajorMove(board, this, possibleNextMoveCoords));
+                    }
+                }
+
+            } else if (currentOffset == 9 && !(BoardUtils.FirstColumn[this.pieceCoords] && this.pieceSide.isWhite())
+                    || (BoardUtils.EightthColumn[this.pieceCoords] && this.pieceSide.isBlack())) {
+                if (board.getTile(possibleNextMoveCoords).isTileOccupied()) {
+                    final Piece pieceOnPossibleTile = board.getTile(possibleNextMoveCoords).getPiece();
+
+                    if (pieceOnPossibleTile.getPieceSide() != this.pieceSide) {
+                        legalMoves.add(new MajorMove(board, this, possibleNextMoveCoords));
+                    }
+                }
             }
         }
-        return null;
+        return Collections.unmodifiableCollection(legalMoves);
     }
 
     public boolean isFirstMove() {
