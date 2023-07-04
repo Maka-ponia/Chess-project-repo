@@ -23,7 +23,7 @@ public class Bishop extends Piece {
     private final static int[] possibleCoordsOffsets = { -9, -7, 7, 9 };
 
     public Bishop(int pieceCoords, Alliance pieceSide) {
-        super(pieceCoords, pieceSide);
+        super(PieceType.BISHOP, pieceCoords, pieceSide);
     }
 
     // Creates a collection of Moves that the Bishop can do based of its current

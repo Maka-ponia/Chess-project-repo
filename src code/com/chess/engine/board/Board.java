@@ -16,12 +16,17 @@ import com.chess.engine.pieces.Pawn;
 import com.chess.engine.pieces.Piece;
 import com.chess.engine.pieces.Queen;
 import com.chess.engine.pieces.Rook;
+import com.chess.engine.player.BlackPlayer;
+import com.chess.engine.player.WhitePlayer;
 
 public class Board {
 
     private final List<Tile> gameBoard;
     private final Collection<Piece> whitePieces;
     private final Collection<Piece> blackPieces;
+
+    private final WhitePlayer whitePlayer;
+    private final BlackPlayer blackPlayer;
 
     private Board(Builder builder) {
         this.gameBoard = makeGameBoard(builder);
@@ -30,6 +35,10 @@ public class Board {
 
         final Collection<Move> whiteStanderdLegalMoves = calcLegalMoves(this.whitePieces);
         final Collection<Move> blackStanderdLegalMoves = calcLegalMoves(this.blackPieces);
+
+        this.whitePlayer = new WhitePlayer(this, whiteStanderdLegalMoves, blackStanderdLegalMoves);
+        this.blackPlayer = new BlackPlayer(this, whiteStanderdLegalMoves, blackStanderdLegalMoves);
+
     }
 
     // Prints the board in terminal
@@ -46,6 +55,14 @@ public class Board {
         }
 
         return builder.toString();
+    }
+
+    public Collection<Piece> getBlackPiece() {
+        return this.blackPieces;
+    }
+
+    public Collection<Piece> getWhitePiece() {
+        return this.whitePieces;
     }
 
     private Collection<Move> calcLegalMoves(Collection<Piece> pieces) {

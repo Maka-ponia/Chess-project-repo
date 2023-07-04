@@ -32,7 +32,7 @@ public class Queen extends Piece {
     private final static int[] possibleCoordsOffsets = { -9, -8, -7, -1, 9, 8, 7, 1 };
 
     public Queen(int pieceCoords, Alliance pieceSide) {
-        super(pieceCoords, pieceSide);
+        super(PieceType.QUEEN, pieceCoords, pieceSide);
     }
 
     // Creates a collection of Moves that the Queen can do based of its current

@@ -32,7 +32,7 @@ public class Rook extends Piece {
     private final static int[] possibleCoordsOffsets = { -8, -1, 1, 8 };
 
     public Rook(int pieceCoords, Alliance pieceSide) {
-        super(pieceCoords, pieceSide);
+        super(PieceType.ROOK, pieceCoords, pieceSide);
     }
 
     // Creates a collection of Moves that the Rook can do based of its current

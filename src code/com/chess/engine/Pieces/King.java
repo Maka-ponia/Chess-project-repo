@@ -23,7 +23,7 @@ public class King extends Piece {
     private final static int[] possibleCoordsOffsets = { 1, 7, 8, 9, -1, -7, -8, -9 };
 
     public King(int pieceCoords, Alliance pieceSide) {
-        super(pieceCoords, pieceSide);
+        super(PieceType.KING, pieceCoords, pieceSide);
     }
 
     // Creates a collection of Moves that the King can do based of its current
