@@ -22,7 +22,7 @@ public class Rook extends Piece {
     // possibleCoordsOffsets(i)
     private final static int[] possibleCoordsOffsets = { -8, -1, 1, 8 };
 
-    Rook(int pieceCoords, Alliance pieceSide) {
+    public Rook(int pieceCoords, Alliance pieceSide) {
         super(pieceCoords, pieceSide);
     }
 

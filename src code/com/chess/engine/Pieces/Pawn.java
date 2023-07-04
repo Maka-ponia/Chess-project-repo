@@ -20,7 +20,7 @@ public class Pawn extends Piece {
     // possibleCoordsOffsets(i)
     private final static int[] possibleCoordsOffsets = { 8, 16, 7, 9 };
 
-    Pawn(int pieceCoords, final Alliance pieceSide) {
+    public Pawn(int pieceCoords, final Alliance pieceSide) {
         super(pieceCoords, pieceSide);
     }
 

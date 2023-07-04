@@ -22,7 +22,7 @@ public class King extends Piece {
     // possibleCoordsOffsets(i)
     private final static int[] possibleCoordsOffsets = { 1, 7, 8, 9, -1, -7, -8, -9 };
 
-    King(int pieceCoords, Alliance pieceSide) {
+    public King(int pieceCoords, Alliance pieceSide) {
         super(pieceCoords, pieceSide);
     }
 

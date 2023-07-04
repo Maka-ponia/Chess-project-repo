@@ -22,7 +22,7 @@ public class Bishop extends Piece {
     // possibleCoordsOffsets(i)
     private final static int[] possibleCoordsOffsets = { -9, -7, 7, 9 };
 
-    Bishop(int pieceCoords, Alliance pieceSide) {
+    public Bishop(int pieceCoords, Alliance pieceSide) {
         super(pieceCoords, pieceSide);
     }
 
