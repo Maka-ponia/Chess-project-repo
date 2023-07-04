@@ -16,6 +16,10 @@ public abstract class Piece {
         this.isFirstMove = false;
     }
 
+    public int getPiecePos() {
+        return this.pieceCoords;
+    }
+
     public Alliance getPieceSide() {
         return this.pieceSide;
     }

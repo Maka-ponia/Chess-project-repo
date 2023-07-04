@@ -26,6 +26,21 @@ public class King extends Piece {
         super(pieceCoords, pieceSide);
     }
 
+    // Creates a collection of Moves that the King can do based of its current
+    // postion.
+    // Gets the King current cords and applies the offset to it i.e
+    // possibleNextMoveCoords.
+    // After checks if possibleNextMoveCoords is a vaild tile coord. If it is a
+    // vaild tile coord
+    // then we look at the title and check it. If the tile is not Occupied then a
+    // major move
+    // i.e Moving from one tile to another, is added to the list of possible moves.
+    // If it is
+    // occupied then an attack move i.e replaceing the enemy piece at the
+    // possibleNextMoveCoords,
+    // is added to the list of possible moves. This is done for each offset against
+    // the piece
+    // current coors.
     @Override
     public Collection<Move> calcLegalmMoves(Board board) {
         Collection<Move> legalMoves = new ArrayList<>();
