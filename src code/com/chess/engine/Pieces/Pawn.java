@@ -12,6 +12,15 @@ import com.chess.engine.board.Move.MajorMove;
 
 public class Pawn extends Piece {
 
+    public void check() {
+        boolean condition;
+        do {
+            System.out.println(getClass());
+            condition = false;
+        } while (condition);
+
+    }
+
     // if we image a 8X8 board with the top left being 1 counting left to right then
     // these numbers
     // plus the Pawn current coord are each position that the Pawn could jump
@@ -73,6 +82,11 @@ public class Pawn extends Piece {
             }
         }
         return Collections.unmodifiableCollection(legalMoves);
+    }
+
+    @Override
+    public String toString() {
+        return PieceType.PAWN.toString();
     }
 
     public boolean isFirstMove() {

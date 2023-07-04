@@ -14,6 +14,15 @@ import com.chess.engine.board.Tile;
 
 public class Queen extends Piece {
 
+    public void check() {
+        boolean condition;
+        do {
+            System.out.println(getClass());
+            condition = false;
+        } while (condition);
+
+    }
+
     // if we image a 8X8 board with the top left being 1 counting left to right then
     // these numbers
     // plus the Queen current coord are each position that the Queen could jump
@@ -56,13 +65,12 @@ public class Queen extends Piece {
             int possibleNextMoveCoords = this.pieceCoords;
 
             while (BoardUtils.isValidTileCoord(possibleNextMoveCoords)) {
-                possibleNextMoveCoords += currentOffset;
 
                 if (isFirstColumnExlusion(possibleNextMoveCoords, currentOffset)
                         || isEightThColumnExlusion(possibleNextMoveCoords, currentOffset)) {
                     break;
                 }
-
+                possibleNextMoveCoords += currentOffset;
                 if (BoardUtils.isValidTileCoord(possibleNextMoveCoords)) {
                     final Tile possibleNextMoveTile = board.getTile(possibleNextMoveCoords);
 
@@ -82,6 +90,11 @@ public class Queen extends Piece {
             }
         }
         return Collections.unmodifiableCollection(legalMoves);
+    }
+
+    @Override
+    public String toString() {
+        return PieceType.QUEEN.toString();
     }
 
     // Is used to check if the Queen on the first column are able to move to

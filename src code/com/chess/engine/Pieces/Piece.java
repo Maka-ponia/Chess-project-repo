@@ -30,4 +30,27 @@ public abstract class Piece {
 
     // A method that calculates the leagal moves of a piece
     public abstract Collection<Move> calcLegalmMoves(final Board board);
+
+    public enum PieceType {
+
+        PAWN("P"),
+        KNIGHT("K"),
+        BISHOP("B"),
+        KING("KI"),
+        QUEEN("QU"),
+        ROOK("R");
+
+        private String pieceName;
+
+        PieceType(final String pieceName) {
+            this.pieceName = pieceName;
+        }
+
+        @Override
+        public String toString() {
+            return this.pieceName;
+        }
+
+    }
+
 }

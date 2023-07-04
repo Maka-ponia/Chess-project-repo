@@ -55,13 +55,13 @@ public class Bishop extends Piece {
             int possibleNextMoveCoords = this.pieceCoords;
 
             while (BoardUtils.isValidTileCoord(possibleNextMoveCoords)) {
-                possibleNextMoveCoords += currentOffset;
 
                 if (isFirstColumnExlusion(possibleNextMoveCoords, currentOffset)
                         || isEightThColumnExlusion(possibleNextMoveCoords, currentOffset)) {
                     break;
                 }
 
+                possibleNextMoveCoords += currentOffset;
                 if (BoardUtils.isValidTileCoord(possibleNextMoveCoords)) {
                     final Tile possibleNextMoveTile = board.getTile(possibleNextMoveCoords);
 
@@ -81,6 +81,11 @@ public class Bishop extends Piece {
             }
         }
         return Collections.unmodifiableCollection(legalMoves);
+    }
+
+    @Override
+    public String toString() {
+        return PieceType.BISHOP.toString();
     }
 
     // Is used to check if the Bishop on the first column are able to move to

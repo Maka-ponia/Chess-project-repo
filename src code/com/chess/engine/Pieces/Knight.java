@@ -14,6 +14,15 @@ import com.chess.engine.board.Move.MajorMove;
 
 public class Knight extends Piece {
 
+    public void check() {
+        boolean condition;
+        do {
+            System.out.println(getClass());
+            condition = false;
+        } while (condition);
+
+    }
+
     // if we image a 8X8 board with the top left being 1 counting left to right then
     // these numbers
     // plus the Knights current coord are each position that the knight could jump
@@ -73,6 +82,11 @@ public class Knight extends Piece {
             }
         }
         return Collections.unmodifiableCollection(legalMoves);
+    }
+
+    @Override
+    public String toString() {
+        return PieceType.KNIGHT.toString();
     }
 
     // Is used to check if the knights on the first column are able to move to

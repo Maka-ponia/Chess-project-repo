@@ -73,6 +73,11 @@ public class King extends Piece {
         return Collections.unmodifiableCollection(legalMoves);
     }
 
+    @Override
+    public String toString() {
+        return PieceType.KING.toString();
+    }
+
     // Is used to check if the King on the first column are able to move to
     // certian possitions
     private static boolean isFirstColumnExlusion(final int currentCoords, final int possibleOffset) {

@@ -11,8 +11,8 @@ public class BoardUtils {
     public static final boolean[] SeventhColumn = intColumn(6);
     public static final boolean[] EightthColumn = intColumn(7);
 
-    public static final boolean[] SecondRow = null;
-    public static final boolean[] SeventhRow = null;
+    public static final boolean[] SecondRow = intRow(8);
+    public static final boolean[] SeventhRow = intRow(48);
 
     public static final int numTitles = 64;
     public static final int numTitlesPerRow = 8;
@@ -20,6 +20,20 @@ public class BoardUtils {
     // Somthing or other idk idk
     private BoardUtils() {
         throw new RuntimeException("You cannot instantiate me!");
+    }
+
+    // A generic method used to fill the row array with true statments depending
+    // on which row is used
+    private static boolean[] intRow(int rowNum) {
+        final boolean[] row = new boolean[numTitles];
+
+        do {
+            row[rowNum] = true;
+            rowNum++;
+
+        } while (rowNum % numTitlesPerRow != 0);
+
+        return row;
     }
 
     // A generic method used to fill the column array with true statments depending
