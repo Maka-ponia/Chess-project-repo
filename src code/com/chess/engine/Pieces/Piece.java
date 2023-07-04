@@ -8,14 +8,20 @@ import com.chess.engine.board.Board;
 public abstract class Piece {
     protected final int pieceCoords;
     protected final Alliance pieceSide;
+    protected final boolean isFirstMove;
 
     Piece(final int pieceCoords, final Alliance pieceSide) {
         this.pieceCoords = pieceCoords;
         this.pieceSide = pieceSide;
+        this.isFirstMove = false;
     }
 
     public Alliance getPieceSide() {
         return this.pieceSide;
+    }
+
+    public boolean isFirstMove() {
+        return this.isFirstMove;
     }
 
     // A method that calculates the leagal moves of a piece

@@ -10,6 +10,10 @@ public class BoardUtils {
     public static final boolean[] SecondColumn = intColumn(1);
     public static final boolean[] SeventhColumn = intColumn(6);
     public static final boolean[] EightthColumn = intColumn(7);
+
+    public static final boolean[] SecondRow = null;
+    public static final boolean[] SeventhRow = null;
+
     public static final int numTitles = 64;
     public static final int numTitlesPerRow = 8;
 
