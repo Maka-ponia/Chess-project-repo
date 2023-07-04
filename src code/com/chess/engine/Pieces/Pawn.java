@@ -36,6 +36,7 @@ public class Pawn extends Piece {
             }
 
             if (currentOffset == 8 && !board.getTile(possibleNextMoveCoords).isTileOccupied()) {
+                // TODO more work to be done here
                 legalMoves.add(new MajorMove(board, this, possibleNextMoveCoords));
 
             } else if (currentOffset == 16 && this.isFirstMove() && (BoardUtils.SecondRow[this.pieceCoords])
@@ -54,6 +55,7 @@ public class Pawn extends Piece {
                     final Piece pieceOnPossibleTile = board.getTile(possibleNextMoveCoords).getPiece();
 
                     if (pieceOnPossibleTile.getPieceSide() != this.pieceSide) {
+                        // TODO more work to be done here
                         legalMoves.add(new MajorMove(board, this, possibleNextMoveCoords));
                     }
                 }
@@ -64,6 +66,7 @@ public class Pawn extends Piece {
                     final Piece pieceOnPossibleTile = board.getTile(possibleNextMoveCoords).getPiece();
 
                     if (pieceOnPossibleTile.getPieceSide() != this.pieceSide) {
+                        // TODO more work to be done here
                         legalMoves.add(new MajorMove(board, this, possibleNextMoveCoords));
                     }
                 }
