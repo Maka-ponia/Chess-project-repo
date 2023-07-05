@@ -36,7 +36,7 @@ public abstract class Player {
         return this.legalMoves;
     }
 
-    private static Collection<Move> calcAtkOnTile(int piecePos, Collection<Move> oppMoves) {
+    protected static Collection<Move> calcAtkOnTile(int piecePos, Collection<Move> oppMoves) {
         final List<Move> atkMoves = new ArrayList<>();
 
         for (final Move move : oppMoves) {
@@ -116,4 +116,6 @@ public abstract class Player {
     public abstract Alliance getAlliance();
 
     public abstract Player getOpp();
+
+    protected abstract Collection<Move> calcKingCastles(Collection<Move> plaerLegals, Collection<Move> oppLegals);
 }
