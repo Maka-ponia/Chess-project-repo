@@ -31,7 +31,7 @@ public class Knight extends Piece {
     // possibleCoordsOffsets(i)
     private final static int[] possibleCoordsOffsets = { -17, -15, -10, -6, 6, 10, 15, 17 };
 
-    public Knight(int pieceCoords, Alliance pieceSide) {
+    public Knight(final int pieceCoords, final Alliance pieceSide) {
         super(PieceType.KNIGHT, pieceCoords, pieceSide);
     }
 

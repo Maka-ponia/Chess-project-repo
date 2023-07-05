@@ -39,7 +39,7 @@ public class Board {
         return this.blackPlayer;
     }
 
-    private Board(Builder builder) {
+    private Board(final Builder builder) {
         this.gameBoard = makeGameBoard(builder);
         this.whitePieces = calcActivePieces(this.gameBoard, Alliance.White);
         this.blackPieces = calcActivePieces(this.gameBoard, Alliance.Black);
@@ -50,7 +50,7 @@ public class Board {
         this.whitePlayer = new WhitePlayer(this, whiteStanderdLegalMoves, blackStanderdLegalMoves);
         this.blackPlayer = new BlackPlayer(this, whiteStanderdLegalMoves, blackStanderdLegalMoves);
 
-        this.currPlayer = null;
+        this.currPlayer = Builder.nextMoveMaker.choosePlayer(this.whitePlayer, this.blackPlayer);
 
     }
 
@@ -171,7 +171,7 @@ public class Board {
     public static class Builder {
 
         Map<Integer, Piece> boardConfig;
-        Alliance nextMoveMaker;
+        static Alliance nextMoveMaker;
 
         public Builder() {
             this.boardConfig = new HashMap<>();
