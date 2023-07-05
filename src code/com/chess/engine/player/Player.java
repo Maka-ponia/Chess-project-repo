@@ -1,10 +1,10 @@
 package com.chess.engine.player;
 
 import java.util.Collection;
-import java.util.Collections;
 
 import javax.management.RuntimeErrorException;
 
+import com.chess.engine.Alliance;
 import com.chess.engine.board.Board;
 import com.chess.engine.board.Move;
 import com.chess.engine.pieces.King;
@@ -34,5 +34,34 @@ public abstract class Player {
         throw new RuntimeErrorException(null, "should no reach here! Not a vali board");
     }
 
+    public boolean isMoveLegal(final Move move) {
+        return this.legalMoves.contains(move);
+    }
+
+    // TODO implement
+    public boolean isInCheck() {
+        return false;
+    }
+
+    public boolean isInCheckmate() {
+        return false;
+    }
+
+    public boolean isInStalemate() {
+        return false;
+    }
+
+    public boolean isCastled() {
+        return false;
+    }
+
+    public MoveTrans makeMove(final Move move) {
+        return null;
+    }
+
     public abstract Collection<Piece> getActivePieces();
+
+    public abstract Alliance getAlliance();
+
+    public abstract Player getOpp();
 }
