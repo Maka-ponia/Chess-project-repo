@@ -192,4 +192,14 @@ public class Board {
         }
     }
 
+    public Iterable<Move> getAllLegelMoves() {
+
+        List<Move> allLegelMoves = new ArrayList<>();
+
+        allLegelMoves.addAll(this.whitePlayer.getlegalMoves());
+        allLegelMoves.addAll(this.blackPlayer.getlegalMoves());
+
+        return Collections.unmodifiableList(allLegelMoves);
+    }
+
 }
