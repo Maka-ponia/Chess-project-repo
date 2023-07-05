@@ -6,6 +6,18 @@ public enum MoveStatus {
         boolean isDone() {
             return true;
         }
+    },
+    IllegalMove {
+        @Override
+        boolean isDone() {
+            return false;
+        }
+    },
+    LeavesPlayerInCheck {
+        @Override
+        boolean isDone() {
+            return false;
+        }
     };
 
     abstract boolean isDone();

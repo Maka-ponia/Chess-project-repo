@@ -28,6 +28,14 @@ public abstract class Player {
         this.isInCheck = !Player.calcAtkOnTile(this.playerKing.getPiecePos(), oppMoves).isEmpty();
     }
 
+    public King getPlayerKing() {
+        return this.playerKing;
+    }
+
+    public Collection<Move> getlegalMoves() {
+        return this.legalMoves;
+    }
+
     private static Collection<Move> calcAtkOnTile(int piecePos, Collection<Move> oppMoves) {
         final List<Move> atkMoves = new ArrayList<>();
 
@@ -48,7 +56,7 @@ public abstract class Player {
             }
         }
 
-        throw new RuntimeErrorException(null, "should no reach here! Not a vali board");
+        throw new RuntimeErrorException(null, "should no reach here! Not a valid board");
     }
 
     public boolean isMoveLegal(final Move move) {
@@ -73,7 +81,22 @@ public abstract class Player {
     }
 
     public MoveTrans makeMove(final Move move) {
-        return null;
+
+        if (!isMoveLegal(move)) {
+            return new MoveTrans(this.board, move, MoveStatus.IllegalMove);
+        }
+
+        final Board transBoard = move.Exc();
+
+        final Collection<Move> kingAtks = Player.calcAtkOnTile(
+                transBoard.currentPlayer().getOpp().getPlayerKing().getPiecePos(),
+                transBoard.currentPlayer().getlegalMoves());
+
+        if (!kingAtks.isEmpty()) {
+            return new MoveTrans(transBoard, move, MoveStatus.LeavesPlayerInCheck);
+        }
+
+        return new MoveTrans(transBoard, move, MoveStatus.DONE);
     }
 
     protected boolean hasEscapeMoves() {

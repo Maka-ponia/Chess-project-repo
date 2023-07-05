@@ -29,6 +29,8 @@ public class Board {
     private final WhitePlayer whitePlayer;
     private final BlackPlayer blackPlayer;
 
+    private final Player currPlayer;
+
     public Player whitePlayer() {
         return this.whitePlayer;
     }
@@ -47,6 +49,8 @@ public class Board {
 
         this.whitePlayer = new WhitePlayer(this, whiteStanderdLegalMoves, blackStanderdLegalMoves);
         this.blackPlayer = new BlackPlayer(this, whiteStanderdLegalMoves, blackStanderdLegalMoves);
+
+        this.currPlayer = null;
 
     }
 
@@ -72,6 +76,10 @@ public class Board {
 
     public Collection<Piece> getWhitePiece() {
         return this.whitePieces;
+    }
+
+    public Player currentPlayer() {
+        return this.currPlayer;
     }
 
     private Collection<Move> calcLegalMoves(Collection<Piece> pieces) {
