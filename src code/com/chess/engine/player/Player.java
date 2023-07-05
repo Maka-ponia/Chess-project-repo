@@ -1,6 +1,9 @@
 package com.chess.engine.player;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
 import javax.management.RuntimeErrorException;
 
@@ -15,12 +18,26 @@ public abstract class Player {
     protected final Board board;
     protected final King playerKing;
     protected final Collection<Move> legalMoves;
+    private final boolean isInCheck;
 
     Player(final Board board, final Collection<Move> legalMoves, final Collection<Move> oppMoves) {
 
         this.board = board;
         this.playerKing = establishKing();
         this.legalMoves = legalMoves;
+        this.isInCheck = !Player.calcAtkOnTile(this.playerKing.getPiecePos(), oppMoves).isEmpty();
+    }
+
+    private static Collection<Move> calcAtkOnTile(int piecePos, Collection<Move> oppMoves) {
+        final List<Move> atkMoves = new ArrayList<>();
+
+        for (final Move move : oppMoves) {
+            if (piecePos == move.getNextMoveCoords()) {
+                atkMoves.add(move);
+            }
+        }
+
+        return Collections.unmodifiableCollection(atkMoves);
     }
 
     private King establishKing() {
@@ -38,25 +55,37 @@ public abstract class Player {
         return this.legalMoves.contains(move);
     }
 
-    // TODO implement
     public boolean isInCheck() {
-        return false;
+        return this.isInCheck;
     }
 
     public boolean isInCheckmate() {
-        return false;
+        return this.isInCheck && !hasEscapeMoves();
     }
 
     public boolean isInStalemate() {
-        return false;
+        return !this.isInCheck && !hasEscapeMoves();
     }
 
+    // TODO implement
     public boolean isCastled() {
         return false;
     }
 
     public MoveTrans makeMove(final Move move) {
         return null;
+    }
+
+    protected boolean hasEscapeMoves() {
+
+        for (final Move move : this.legalMoves) {
+            final MoveTrans trans = makeMove(move);
+            if (trans.getMoveStatus().isDone()) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public abstract Collection<Piece> getActivePieces();

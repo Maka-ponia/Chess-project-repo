@@ -32,4 +32,8 @@ public class Move {
 
     }
 
+    public int getNextMoveCoords() {
+        return this.destinaionCoords;
+    }
+
 }

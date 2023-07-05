@@ -15,4 +15,8 @@ public class MoveTrans {
         this.MoveStatus = MoveStatus;
     }
 
+    public MoveStatus getMoveStatus() {
+        return this.MoveStatus;
+    }
+
 }
