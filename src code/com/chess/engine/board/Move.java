@@ -38,7 +38,7 @@ public abstract class Move {
             }
 
             // move the moved piece
-            builder.setPiece(null);
+            builder.setPiece(this.movedPiece.movPiece(this));
             builder.setMoveMaker(this.board.currentPlayer().getOpp().getAlliance());
             return builder.Build();
         }
@@ -57,11 +57,14 @@ public abstract class Move {
         public Board Exc() {
             return null;
         }
-
     }
 
     public int getNextMoveCoords() {
         return this.destinaionCoords;
+    }
+
+    public Piece getMovepiece() {
+        return this.movedPiece;
     }
 
 }

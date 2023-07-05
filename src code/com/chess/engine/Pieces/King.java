@@ -92,4 +92,9 @@ public class King extends Piece {
                 && (possibleOffset == 9 || possibleOffset == 1 || possibleOffset == -7);
     }
 
+    @Override
+    public King movPiece(final Move move) {
+        return new King(move.getNextMoveCoords(), move.getMovepiece().getPieceSide());
+    }
+
 }

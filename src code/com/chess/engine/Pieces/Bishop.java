@@ -102,4 +102,9 @@ public class Bishop extends Piece {
                 && (possibleOffset == -7 || possibleOffset == 9);
     }
 
+    @Override
+    public Bishop movPiece(final Move move) {
+        return new Bishop(move.getNextMoveCoords(), move.getMovepiece().getPieceSide());
+    }
+
 }

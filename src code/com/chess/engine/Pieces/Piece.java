@@ -37,6 +37,8 @@ public abstract class Piece {
     // A method that calculates the leagal moves of a piece
     public abstract Collection<Move> calcLegalmMoves(final Board board);
 
+    public abstract Piece movPiece(Move move);
+
     public enum PieceType {
 
         PAWN("P") {

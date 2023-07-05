@@ -109,4 +109,8 @@ public class Rook extends Piece {
         return BoardUtils.EightthColumn[currentCoords] && (possibleOffset == 1);
     }
 
+    @Override
+    public Rook movPiece(final Move move) {
+        return new Rook(move.getNextMoveCoords(), move.getMovepiece().getPieceSide());
+    }
 }

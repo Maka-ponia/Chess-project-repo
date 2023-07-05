@@ -115,4 +115,9 @@ public class Knight extends Piece {
                 && (possibleOffset == -15 || possibleOffset == -6 || possibleOffset == 10 || possibleOffset == 17);
     }
 
+    @Override
+    public Knight movPiece(final Move move) {
+        return new Knight(move.getNextMoveCoords(), move.getMovepiece().getPieceSide());
+    }
+
 }
