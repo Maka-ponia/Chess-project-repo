@@ -95,6 +95,6 @@ public class Pawn extends Piece {
 
     @Override
     public Pawn movPiece(final Move move) {
-        return new Pawn(move.getNextMoveCoords(), move.getMovepiece().getPieceSide());
+        return new Pawn(move.getNextMoveCoords(), move.getMovedpiece().getPieceSide());
     }
 }

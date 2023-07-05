@@ -104,7 +104,7 @@ public class Bishop extends Piece {
 
     @Override
     public Bishop movPiece(final Move move) {
-        return new Bishop(move.getNextMoveCoords(), move.getMovepiece().getPieceSide());
+        return new Bishop(move.getNextMoveCoords(), move.getMovedpiece().getPieceSide());
     }
 
 }

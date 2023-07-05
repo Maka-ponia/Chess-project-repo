@@ -94,7 +94,7 @@ public class King extends Piece {
 
     @Override
     public King movPiece(final Move move) {
-        return new King(move.getNextMoveCoords(), move.getMovepiece().getPieceSide());
+        return new King(move.getNextMoveCoords(), move.getMovedpiece().getPieceSide());
     }
 
 }

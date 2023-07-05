@@ -111,6 +111,6 @@ public class Rook extends Piece {
 
     @Override
     public Rook movPiece(final Move move) {
-        return new Rook(move.getNextMoveCoords(), move.getMovepiece().getPieceSide());
+        return new Rook(move.getNextMoveCoords(), move.getMovedpiece().getPieceSide());
     }
 }

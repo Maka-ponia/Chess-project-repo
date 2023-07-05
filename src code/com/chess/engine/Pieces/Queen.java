@@ -113,6 +113,6 @@ public class Queen extends Piece {
 
     @Override
     public Queen movPiece(final Move move) {
-        return new Queen(move.getNextMoveCoords(), move.getMovepiece().getPieceSide());
+        return new Queen(move.getNextMoveCoords(), move.getMovedpiece().getPieceSide());
     }
 }

@@ -171,6 +171,7 @@ public class Board {
     public static class Builder {
 
         Map<Integer, Piece> boardConfig;
+        private Pawn enPassantpawn;
         static Alliance nextMoveMaker;
 
         public Builder() {
@@ -189,6 +190,10 @@ public class Board {
 
         public Board Build() {
             return new Board(this);
+        }
+
+        public void setEnPassantpawn(Pawn movedPawn) {
+            this.enPassantpawn = movedPawn;
         }
     }
 

@@ -1,6 +1,7 @@
 package com.chess.engine.board;
 
 import com.chess.engine.board.Board.Builder;
+import com.chess.engine.pieces.Pawn;
 import com.chess.engine.pieces.Piece;
 
 public abstract class Move {
@@ -16,12 +17,48 @@ public abstract class Move {
         this.destinaionCoords = destinaionCoords;
     }
 
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+
+        result = prime * result + this.destinaionCoords;
+        result = prime * result + this.movedPiece.hashCode();
+
+        return result;
+    }
+
+    @Override
+    public boolean equals(final Object other) {
+        if (this == other) {
+            return true;
+        }
+        if (!(other instanceof Move)) {
+            return false;
+        }
+        final Move otherMove = (Move) other;
+        return getNextMoveCoords() == otherMove.getNextMoveCoords()
+                && getMovedpiece().equals(otherMove.getMovedpiece());
+    }
+
     public int getNextMoveCoords() {
         return this.destinaionCoords;
     }
 
-    public Piece getMovepiece() {
+    public Piece getMovedpiece() {
         return this.movedPiece;
+    }
+
+    public boolean isAttack() {
+        return false;
+    }
+
+    public boolean isCastlingMove() {
+        return false;
+    }
+
+    public Piece getAtkedPiece() {
+        return null;
     }
 
     public Board Exc() {
@@ -61,8 +98,35 @@ public abstract class Move {
         }
 
         @Override
+        public int hashCode() {
+            return this.atkedPiece.hashCode() + super.hashCode();
+        }
+
+        @Override
+        public boolean equals(final Object other) {
+            if (this == other) {
+                return true;
+            }
+            if (!(other instanceof AtkMove)) {
+                return false;
+            }
+            final AtkMove otherAtkMove = (AtkMove) other;
+            return super.equals(otherAtkMove) && getAtkedPiece().equals(otherAtkMove.getAtkedPiece());
+        }
+
+        @Override
         public Board Exc() {
             return null;
+        }
+
+        @Override
+        public boolean isAttack() {
+            return true;
+        }
+
+        @Override
+        public Piece getAtkedPiece() {
+            return this.atkedPiece;
         }
     }
 
@@ -78,6 +142,25 @@ public abstract class Move {
         public pawnJump(final Board board, final Piece movedPiece, final int destinaionCoords) {
             super(board, movedPiece, destinaionCoords);
         }
+
+        @Override
+        public Board Exc() {
+            final Builder builder = new Builder();
+            for (final Piece piece : this.board.currentPlayer().getActivePieces()) {
+                if (!this.movedPiece.equals(piece)) {
+                    builder.setPiece(piece);
+                }
+            }
+            for (final Piece piece : this.board.currentPlayer().getOpp().getActivePieces()) {
+                builder.setPiece(piece);
+            }
+            final Pawn movedPawn = (Pawn) this.movedPiece.movPiece(this);
+            builder.setPiece(movedPiece);
+            builder.setEnPassantpawn(movedPawn);
+            builder.setMoveMaker((this.board.currentPlayer().getOpp().getAlliance()));
+            return builder.Build();
+        }
+
     }
 
     public static class pawnAtkMove extends AtkMove {
