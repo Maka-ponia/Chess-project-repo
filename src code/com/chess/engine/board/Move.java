@@ -3,6 +3,7 @@ package com.chess.engine.board;
 import com.chess.engine.board.Board.Builder;
 import com.chess.engine.pieces.Pawn;
 import com.chess.engine.pieces.Piece;
+import com.chess.engine.pieces.Rook;
 
 public abstract class Move {
     final Board board;
@@ -181,54 +182,105 @@ public abstract class Move {
 
     static abstract class castleMove extends Move {
 
-        public castleMove(Board board, Piece movedPiece, int destinaionCoords) {
+        protected final Rook castleRook;
+        protected final int castleRookstart;
+        protected final int castleRookNextMovie;
+
+        public castleMove(Board board, Piece movedPiece, int destinaionCoords, final Rook castleRook,
+                final int castleRookstart, final int castleRookNextMovie) {
             super(board, movedPiece, destinaionCoords);
+            this.castleRook = castleRook;
+            this.castleRookstart = castleRookstart;
+            this.castleRookNextMovie = castleRookNextMovie;
         }
-    }
 
-    public static final class kingSideCastleMovie extends Move {
-
-        public kingSideCastleMovie(final Board board, final Piece movedPiece, final int destinaionCoords) {
-            super(board, movedPiece, destinaionCoords);
+        public Rook getCastleRook() {
+            return this.castleRook;
         }
-    }
 
-    public static final class queenSideCastleMovie extends Move {
-
-        public queenSideCastleMovie(final Board board, final Piece movedPiece, final int destinaionCoords) {
-            super(board, movedPiece, destinaionCoords);
-        }
-    }
-
-    public static final class nullMove extends Move {
-
-        public nullMove() {
-            super(null, null, -1);
+        @Override
+        public boolean isCastlingMove() {
+            return true;
         }
 
         @Override
         public Board Exc() {
-            throw new RuntimeException("cannot exe the null move!");
-        }
-    }
-
-    public static class MoveFactory {
-        private MoveFactory() {
-            throw new RuntimeException("not instaniable");
-        }
-
-        public static Move creatMove(final Board board, final int currentCoords, final int destinaionCoords) {
-
-            for (final Move move : board.getAllLegelMoves()) {
-                if (move.getCurrentCoord() == currentCoords && move.getNextMoveCoords() == destinaionCoords) {
-                    return move;
+            Builder builder = new Builder();
+            for (final Piece piece : this.board.currentPlayer().getActivePieces()) {
+                if (!this.movedPiece.equals(piece) && !this.castleRook.equals(piece)) {
+                    builder.setPiece(piece);
                 }
             }
-            return null;
+            for (final Piece piece : this.board.currentPlayer().getOpp().getActivePieces()) {
+                builder.setPiece(piece);
+            }
+            builder.setPiece(this.movedPiece.movPiece(this));
+            builder.setPiece(new Rook(this.castleRookNextMovie, this.castleRook.getPieceSide()));
+            builder.setMoveMaker(this.board.currentPlayer().getOpp().getAlliance());
+            return builder.Build();
+        }
+
+        public static final class kingSideCastleMovie extends castleMove {
+
+            public kingSideCastleMovie(final Board board, final Piece movedPiece, final int destinaionCoords,
+                    final Rook castleRook,
+                    final int castleRookstart, final int castleRookNextMovie) {
+                super(board, movedPiece, destinaionCoords, castleRook,
+                        castleRookstart, castleRookNextMovie);
+            }
+
+            @Override
+            public String toString() {
+                return "0=0";
+            }
+        }
+
+        public static final class queenSideCastleMovie extends castleMove {
+
+            public queenSideCastleMovie(final Board board, final Piece movedPiece, final int destinaionCoords,
+                    final Rook castleRook,
+                    final int castleRookstart, final int castleRookNextMovie) {
+                super(board, movedPiece, destinaionCoords, castleRook,
+                        castleRookstart, castleRookNextMovie);
+            }
+
+            @Override
+            public String toString() {
+                return "0-0-0";
+            }
+        }
+
+        public static final class nullMove extends Move {
+
+            public nullMove() {
+                super(null, null, -1);
+            }
+
+            @Override
+            public Board Exc() {
+                throw new RuntimeException("cannot exe the null move!");
+            }
+        }
+
+        public static class MoveFactory {
+            private MoveFactory() {
+                throw new RuntimeException("not instaniable");
+            }
+
+            public static Move creatMove(final Board board, final int currentCoords, final int destinaionCoords) {
+
+                for (final Move move : board.getAllLegelMoves()) {
+                    if (move.getCurrentCoord() == currentCoords && move.getNextMoveCoords() == destinaionCoords) {
+                        return move;
+                    }
+                }
+                return null;
+            }
         }
     }
 
     public int getCurrentCoord() {
         return this.movedPiece.getPiecePos();
     }
+
 }
