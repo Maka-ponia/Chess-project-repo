@@ -1,6 +1,7 @@
 package com.chess.gui;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -26,6 +27,8 @@ public class Table {
     private final static DimensionUIResource OuterFrameDimension = new DimensionUIResource(600, 600);
     private final static DimensionUIResource BoardPanelDimension = new DimensionUIResource(400, 350);
     private final static DimensionUIResource TilePanelDimension = new DimensionUIResource(10, 10);
+    private final Color lightTileColor = Color.decode("#FFFACD");
+    private final Color darkTileColor = Color.decode("#593E1A");
 
     public Table() {
         this.gameFrame = new JFrame("JChess");
@@ -52,12 +55,14 @@ public class Table {
         final JMenuItem printThhing = new JMenuItem("to cathch a butterfly");
 
         openPGN.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("open up png file!");
             }
         });
 
         printThhing.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("illusions of the past, ummmm BREAKKKKK");
             }
@@ -65,6 +70,13 @@ public class Table {
 
         fileMenu.add(openPGN);
         fileMenu.add(printThhing);
+        final JMenuItem exitMenuItem = new JMenuItem("exit");
+        exitMenuItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
         return fileMenu;
     }
 
@@ -96,6 +108,13 @@ public class Table {
         }
 
         private void assignTileColor() {
+            if (BoardUtils.FirstRow[this.tileId] || BoardUtils.ThirdRow[this.tileId] || BoardUtils.FithRow[this.tileId]
+                    || BoardUtils.SeventhRow[this.tileId]) {
+                setBackground(this.tileId % 2 == 0 ? lightTileColor : darkTileColor);
+            } else if (BoardUtils.SecondRow[this.tileId] || BoardUtils.ForthRow[this.tileId]
+                    || BoardUtils.SixRow[this.tileId] || BoardUtils.EightthRow[this.tileId]) {
+                setBackground(this.tileId % 2 != 0 ? lightTileColor : darkTileColor);
+            }
         }
 
     }

@@ -11,8 +11,14 @@ public class BoardUtils {
     public static final boolean[] SeventhColumn = intColumn(6);
     public static final boolean[] EightthColumn = intColumn(7);
 
+    public static final boolean[] FirstRow = intRow(0);
     public static final boolean[] SecondRow = intRow(8);
+    public static final boolean[] ThirdRow = intRow(16);
+    public static final boolean[] ForthRow = intRow(24);
+    public static final boolean[] FithRow = intRow(32);
+    public static final boolean[] SixRow = intRow(40);
     public static final boolean[] SeventhRow = intRow(48);
+    public static final boolean[] EightthRow = intRow(56);
 
     public static final int numTitles = 64;
     public static final int numTitlesPerRow = 8;
