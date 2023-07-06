@@ -20,6 +20,10 @@ public abstract class Tile {
     // Returns the piece on tile
     public abstract Piece getPiece();
 
+    public int getTileCoords() {
+        return this.tileCoords;
+    }
+
     public static Tile createTle(final int titleCoordinate, final Piece piece) {
         // In the og design the return statments would use a ? opperation where there
         // would be

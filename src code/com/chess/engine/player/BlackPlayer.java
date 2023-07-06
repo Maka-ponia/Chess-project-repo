@@ -8,8 +8,11 @@ import java.util.List;
 import com.chess.engine.Alliance;
 import com.chess.engine.board.Board;
 import com.chess.engine.board.Move;
+import com.chess.engine.board.Move.castleMove.kingSideCastleMove;
+import com.chess.engine.board.Move.castleMove.queenSideCastleMove;
 import com.chess.engine.board.Tile;
 import com.chess.engine.pieces.Piece;
+import com.chess.engine.pieces.Rook;
 
 public class BlackPlayer extends Player {
 
@@ -34,19 +37,19 @@ public class BlackPlayer extends Player {
     }
 
     @Override
-    protected Collection<Move> calcKingCastles(Collection<Move> plaerLegals, Collection<Move> oppLegals) {
+    protected Collection<Move> calcKingCastles(final Collection<Move> plaerLegals, final Collection<Move> oppLegals) {
         final List<Move> kingCastle = new ArrayList<>();
         if (this.playerKing.isFirstMove() && !this.isInCheck()) {
             // blck king side castle
             if (!this.board.getTile(5).isTileOccupied() && !this.board.getTile(6).isTileOccupied()) {
-                final Tile rookeTile = this.board.getTile(7);
-                if (rookeTile.isTileOccupied() && rookeTile.getPiece().isFirstMove()) {
-                    // TODO
+                final Tile rookTile = this.board.getTile(7);
+                if (rookTile.isTileOccupied() && rookTile.getPiece().isFirstMove()) {
                     if (Player.calcAtkOnTile(5, oppLegals).isEmpty() && Player.calcAtkOnTile(6, oppLegals).isEmpty()
-                            && rookeTile.getPiece().getPieceType().isRook()) {
+                            && rookTile.getPiece().getPieceType().isRook()) {
 
                     }
-                    kingCastle.add(null);
+                    kingCastle.add(new kingSideCastleMove(this.board, this.playerKing, 6,
+                            (Rook) (rookTile.getPiece()), rookTile.getTileCoords(), 5));
                 }
             }
             if (!this.board.getTile(1).isTileOccupied() && !this.board.getTile(2).isTileOccupied()
@@ -54,8 +57,8 @@ public class BlackPlayer extends Player {
 
                 final Tile rookTile = this.board.getTile(0);
                 if (rookTile.isTileOccupied() && rookTile.getPiece().isFirstMove()) {
-                    // TODO add castle mov
-                    kingCastle.add(null);
+                    kingCastle.add(new queenSideCastleMove(this.board, this.playerKing, 2,
+                            (Rook) (rookTile.getPiece()), rookTile.getTileCoords(), 3));
                 }
             }
         }

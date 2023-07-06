@@ -1,6 +1,7 @@
 package com.chess.engine.board;
 
 import com.chess.engine.board.Board.Builder;
+import com.chess.engine.board.Move.castleMove.nullMove;
 import com.chess.engine.pieces.Pawn;
 import com.chess.engine.pieces.Piece;
 import com.chess.engine.pieces.Rook;
@@ -10,7 +11,7 @@ public abstract class Move {
     final Piece movedPiece;
     final int destinaionCoords;
 
-    public static final Move NullMove = new nullMove();
+    public static final nullMove NullMove = new nullMove();
 
     Move(final Board board, final Piece movedPiece, final int destinaionCoords) {
         this.board = board;
@@ -180,7 +181,7 @@ public abstract class Move {
         }
     }
 
-    static abstract class castleMove extends Move {
+    public static abstract class castleMove extends Move {
 
         protected final Rook castleRook;
         protected final int castleRookstart;
@@ -220,9 +221,9 @@ public abstract class Move {
             return builder.Build();
         }
 
-        public static final class kingSideCastleMovie extends castleMove {
+        public static final class kingSideCastleMove extends castleMove {
 
-            public kingSideCastleMovie(final Board board, final Piece movedPiece, final int destinaionCoords,
+            public kingSideCastleMove(final Board board, final Piece movedPiece, final int destinaionCoords,
                     final Rook castleRook,
                     final int castleRookstart, final int castleRookNextMovie) {
                 super(board, movedPiece, destinaionCoords, castleRook,
@@ -235,9 +236,9 @@ public abstract class Move {
             }
         }
 
-        public static final class queenSideCastleMovie extends castleMove {
+        public static final class queenSideCastleMove extends castleMove {
 
-            public queenSideCastleMovie(final Board board, final Piece movedPiece, final int destinaionCoords,
+            public queenSideCastleMove(final Board board, final Piece movedPiece, final int destinaionCoords,
                     final Rook castleRook,
                     final int castleRookstart, final int castleRookNextMovie) {
                 super(board, movedPiece, destinaionCoords, castleRook,
