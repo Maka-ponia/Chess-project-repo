@@ -2,18 +2,18 @@ package com.chess.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
-import java.awt.Image;
-import java.awt.List;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.swing.SwingUtilities;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -26,12 +26,19 @@ import javax.swing.plaf.DimensionUIResource;
 
 import com.chess.engine.board.Board;
 import com.chess.engine.board.BoardUtils;
+import com.chess.engine.board.Move;
+import com.chess.engine.board.Tile;
+import com.chess.engine.pieces.Piece;
 
 public class Table {
 
     private final JFrame gameFrame;
     private final BoardPanel boardPanel;
     private final Board chessBoard;
+
+    private Tile sourceTile;
+    private Tile destTile;
+    private Piece humanMovedPiece;
 
     private final static DimensionUIResource OuterFrameDimension = new DimensionUIResource(600, 600);
     private final static DimensionUIResource BoardPanelDimension = new DimensionUIResource(400, 350);
@@ -119,6 +126,58 @@ public class Table {
             assignTileColor();
             assignTilePieceIcon(chessBoard);
             validate();
+            addMouseListener(new MouseListener() {
+
+                @Override
+                public void mouseClicked(MouseEvent e) {
+
+                    if (SwingUtilities.isRightMouseButton(e)) {
+
+                        sourceTile = null;
+                        destTile = null;
+                        humanMovedPiece = null;
+
+                    } else if (SwingUtilities.isLeftMouseButton(e)) {
+
+                        if (sourceTile == null) {
+                            sourceTile = chessBoard.getTile(tileId);
+                            humanMovedPiece = sourceTile.getPiece();
+                            if (humanMovedPiece == null) {
+                                sourceTile = null;
+                            }
+                        } else {
+                            destTile = chessBoard.getTile(tileId);
+                            final Move move = null;
+                        }
+
+                    }
+                }
+
+                @Override
+                public void mousePressed(MouseEvent e) {
+                    // TODO Auto-generated method stub
+                    throw new UnsupportedOperationException("Unimplemented method 'mousePressed'");
+                }
+
+                @Override
+                public void mouseReleased(MouseEvent e) {
+                    // TODO Auto-generated method stub
+                    throw new UnsupportedOperationException("Unimplemented method 'mouseReleased'");
+                }
+
+                @Override
+                public void mouseEntered(MouseEvent e) {
+                    // TODO Auto-generated method stub
+                    throw new UnsupportedOperationException("Unimplemented method 'mouseEntered'");
+                }
+
+                @Override
+                public void mouseExited(MouseEvent e) {
+                    // TODO Auto-generated method stub
+                    throw new UnsupportedOperationException("Unimplemented method 'mouseExited'");
+                }
+
+            });
         }
 
         private void assignTilePieceIcon(final Board board) {
