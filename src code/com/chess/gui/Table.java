@@ -1,46 +1,56 @@
 package com.chess.gui;
 
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
+import java.awt.List;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JPanel;
 import javax.swing.plaf.DimensionUIResource;
+
+import com.chess.engine.board.BoardUtils;
 
 public class Table {
 
     private final JFrame gameFrame;
+    private final BoardPanel boardPanel;
 
     private final static DimensionUIResource OuterFrameDimension = new DimensionUIResource(600, 600);
+    private final static DimensionUIResource BoardPanelDimension = new DimensionUIResource(400, 350);
+    private final static DimensionUIResource TilePanelDimension = new DimensionUIResource(10, 10);
 
     public Table() {
-        // Creates big canvas
         this.gameFrame = new JFrame("JChess");
-        // creates a space on the canvas for menu options
-        final JMenuBar tableMenuBar = new JMenuBar();
-        // creates the options in the menue bar
-        populateMenuBar(tableMenuBar);
+        this.gameFrame.setLayout(new BorderLayout());
+        final JMenuBar tableMenuBar = createTableMenuBar();
         this.gameFrame.setJMenuBar(tableMenuBar);
         this.gameFrame.setSize(OuterFrameDimension);
+
+        this.boardPanel = new BoardPanel();
+        this.gameFrame.add(this.boardPanel, BorderLayout.CENTER);
+
         this.gameFrame.setVisible(true);
     }
 
-    private void populateMenuBar(JMenuBar tableMenuBar) {
-        // adds the option to the menu bar
+    private JMenuBar createTableMenuBar() {
+        final JMenuBar tableMenuBar = new JMenuBar();
         tableMenuBar.add(createFileMenu());
-
+        return tableMenuBar;
     }
 
     private JMenu createFileMenu() {
-        // Creates a menu option
         final JMenu fileMenu = new JMenu("File");
-        // // Creates a drop down option to the menu option
         final JMenuItem openPGN = new JMenuItem("Load PGN File");
         final JMenuItem printThhing = new JMenuItem("to cathch a butterfly");
 
-        // performs the drop down option
         openPGN.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 System.out.println("open up png file!");
@@ -53,10 +63,40 @@ public class Table {
             }
         });
 
-        // links the drop down option to the menu option
         fileMenu.add(openPGN);
         fileMenu.add(printThhing);
-        // returns menu
         return fileMenu;
+    }
+
+    private class BoardPanel extends JPanel {
+        final java.util.List<TilePanel> boardTiles;
+
+        BoardPanel() {
+            super(new GridLayout(8, 8));
+            this.boardTiles = new ArrayList<>();
+            for (int index = 0; index < BoardUtils.numTitles; index++) {
+                final TilePanel tilePanel = new TilePanel(this, index);
+                this.boardTiles.add(tilePanel);
+                add(tilePanel);
+            }
+            setPreferredSize(BoardPanelDimension);
+            validate();
+        }
+    }
+
+    private class TilePanel extends JPanel {
+        private final int tileId;
+
+        TilePanel(final BoardPanel boardPanel, final int tileId) {
+            super(new GridBagLayout());
+            this.tileId = tileId;
+            setPreferredSize(TilePanelDimension);
+            assignTileColor();
+            validate();
+        }
+
+        private void assignTileColor() {
+        }
+
     }
 }
