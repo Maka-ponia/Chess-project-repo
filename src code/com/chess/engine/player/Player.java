@@ -64,7 +64,7 @@ public abstract class Player {
             }
         }
 
-        throw new RuntimeErrorException(null, "should no reach here! Not a valid board");
+        throw new RuntimeErrorException(null, "should no reach here Not a valid board");
     }
 
     public boolean isMoveLegal(final Move move) {
