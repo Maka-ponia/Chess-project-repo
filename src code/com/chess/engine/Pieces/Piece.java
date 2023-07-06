@@ -84,7 +84,7 @@ public abstract class Piece {
                 return false;
             }
         },
-        KNIGHT("K") {
+        KNIGHT("N") {
             @Override
             public boolean isKing() {
                 return false;
@@ -106,7 +106,7 @@ public abstract class Piece {
                 return false;
             }
         },
-        KING("KI") {
+        KING("K") {
             @Override
             public boolean isKing() {
                 return true;
@@ -117,7 +117,7 @@ public abstract class Piece {
                 return false;
             }
         },
-        QUEEN("QU") {
+        QUEEN("Q") {
             @Override
             public boolean isKing() {
                 return false;
