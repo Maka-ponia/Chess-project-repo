@@ -76,7 +76,7 @@ public abstract class Piece {
         PAWN("P") {
             @Override
             public boolean isKing() {
-                return true;
+                return false;
             }
 
             @Override
@@ -109,7 +109,7 @@ public abstract class Piece {
         KING("KI") {
             @Override
             public boolean isKing() {
-                return false;
+                return true;
             }
 
             @Override
