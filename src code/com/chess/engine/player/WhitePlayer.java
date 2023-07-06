@@ -58,7 +58,10 @@ public class WhitePlayer extends Player {
                     && !this.board.getTile(57).isTileOccupied()) {
 
                 final Tile rookTile = this.board.getTile(56);
-                if (rookTile.isTileOccupied() && rookTile.getPiece().isFirstMove()) {
+                if (rookTile.isTileOccupied() && rookTile.getPiece().isFirstMove()
+                        && Player.calcAtkOnTile(58, oppLegals).isEmpty()
+                        && Player.calcAtkOnTile(59, oppLegals).isEmpty()
+                        && rookTile.getPiece().getPieceType().isRook()) {
                     kingCastle.add(new queenSideCastleMove(this.board, this.playerKing, 58,
                             (Rook) (rookTile.getPiece()), rookTile.getTileCoords(), 59));
                 }
