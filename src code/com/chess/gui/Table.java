@@ -2,6 +2,7 @@ package com.chess.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -28,21 +29,23 @@ import com.chess.engine.board.Board;
 import com.chess.engine.board.BoardUtils;
 import com.chess.engine.board.Move;
 import com.chess.engine.board.Tile;
+import com.chess.engine.board.Move.castleMove.MoveFactory;
 import com.chess.engine.pieces.Piece;
+import com.chess.engine.player.MoveTrans;
 
 public class Table {
 
     private final JFrame gameFrame;
     private final BoardPanel boardPanel;
-    private final Board chessBoard;
+    private Board chessBoard;
 
     private Tile sourceTile;
     private Tile destTile;
     private Piece humanMovedPiece;
 
-    private final static DimensionUIResource OuterFrameDimension = new DimensionUIResource(600, 600);
-    private final static DimensionUIResource BoardPanelDimension = new DimensionUIResource(400, 350);
-    private final static DimensionUIResource TilePanelDimension = new DimensionUIResource(10, 10);
+    private final static Dimension OuterFrameDimension = new Dimension(600, 600);
+    private final static Dimension BoardPanelDimension = new Dimension(400, 350);
+    private final static Dimension TilePanelDimension = new Dimension(10, 10);
     private static String defPieceImgPath = ("src code/chessIcons/");
 
     private final Color lightTileColor = Color.decode("#FFFACD");
@@ -114,6 +117,18 @@ public class Table {
             setPreferredSize(BoardPanelDimension);
             validate();
         }
+
+        public void drawBoard(final Board board) {
+            removeAll();
+
+            for (final TilePanel tilePanel : boardTiles) {
+                tilePanel.drawTile(board);
+                add(tilePanel);
+            }
+            validate();
+            repaint();
+
+        }
     }
 
     private class TilePanel extends JPanel {
@@ -129,7 +144,7 @@ public class Table {
             addMouseListener(new MouseListener() {
 
                 @Override
-                public void mouseClicked(MouseEvent e) {
+                public void mouseClicked(final MouseEvent e) {
 
                     if (SwingUtilities.isRightMouseButton(e)) {
 
@@ -141,43 +156,59 @@ public class Table {
 
                         if (sourceTile == null) {
                             sourceTile = chessBoard.getTile(tileId);
+                            System.out.println(sourceTile);
                             humanMovedPiece = sourceTile.getPiece();
                             if (humanMovedPiece == null) {
                                 sourceTile = null;
                             }
+
                         } else {
                             destTile = chessBoard.getTile(tileId);
-                            final Move move = null;
+                            final Move move = MoveFactory.creatMove((chessBoard), sourceTile.getTileCoords(),
+                                    destTile.getTileCoords());
+                            final MoveTrans trans = chessBoard.currentPlayer().makeMove(move);
+                            if (trans.getMoveStatus().isDone()) {
+                                chessBoard = trans.getTranBoard();
+                                // TODO add the move that was made to the move log
+                            }
+                            sourceTile = null;
+                            destTile = null;
+                            humanMovedPiece = null;
                         }
-
+                        SwingUtilities.invokeLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                boardPanel.drawBoard(chessBoard);
+                            }
+                        });
                     }
                 }
 
                 @Override
                 public void mousePressed(MouseEvent e) {
-                    // TODO Auto-generated method stub
-                    throw new UnsupportedOperationException("Unimplemented method 'mousePressed'");
                 }
 
                 @Override
                 public void mouseReleased(MouseEvent e) {
-                    // TODO Auto-generated method stub
-                    throw new UnsupportedOperationException("Unimplemented method 'mouseReleased'");
                 }
 
                 @Override
                 public void mouseEntered(MouseEvent e) {
-                    // TODO Auto-generated method stub
-                    throw new UnsupportedOperationException("Unimplemented method 'mouseEntered'");
                 }
 
                 @Override
                 public void mouseExited(MouseEvent e) {
-                    // TODO Auto-generated method stub
-                    throw new UnsupportedOperationException("Unimplemented method 'mouseExited'");
                 }
-
             });
+
+            validate();
+        }
+
+        public void drawTile(final Board board) {
+            assignTileColor();
+            assignTilePieceIcon(board);
+            validate();
+            repaint();
         }
 
         private void assignTilePieceIcon(final Board board) {

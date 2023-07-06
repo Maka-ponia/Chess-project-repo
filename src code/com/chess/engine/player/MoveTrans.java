@@ -19,4 +19,8 @@ public class MoveTrans {
         return this.MoveStatus;
     }
 
+    public Board getTranBoard() {
+        return this.transBoard;
+    }
+
 }
