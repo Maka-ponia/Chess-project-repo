@@ -5,8 +5,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-import javax.management.RuntimeErrorexception;
-
 import com.chess.engine.Alliance;
 import com.chess.engine.board.Board;
 import com.chess.engine.board.Move;
@@ -64,7 +62,9 @@ public abstract class Player {
             }
         }
 
-        throw new Exception(null, "should no reach here Not a valid board");
+        System.out.println("No king was found come to establishKing");
+
+        return null;
     }
 
     public boolean isMoveLegal(final Move move) {

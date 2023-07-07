@@ -106,7 +106,7 @@ public abstract class Move {
 
             @Override
             public String toString(){
-                return movedPiece.getPieceType().toString() + BoardUtils.getPosAtCoords(this.destinaionCoords);
+                retrun movedPiece.getPieceType().toString() + BoardUtils.getPosAtCoords(this.destinaionCoords);
             }
         }
     }

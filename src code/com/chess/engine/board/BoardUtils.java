@@ -24,15 +24,16 @@ public class BoardUtils {
     public static final boolean[] SecondRank = intRow(48);
     public static final boolean[] FirstRank = intRow(56);
 
-    public static final String[] AlgNota = makeAlgNota();
-    public static final Map<String, Integer> posToCoords = makePosToCoordsMap();
+    // public static final String[] AlgNota = makeAlgNota();
+    // public static final Map<String, Integer> posToCoords = makePosToCoordsMap();
 
     public static final int numTitles = 64;
     public static final int numTitlesPerRow = 8;
 
     // Somthing or other idk idk
     private BoardUtils() {
-        throw new Runtimeexception("You cannot instantiate me!");
+        System.out.println("umm idk really");
+        // throw new Runtimeexception("You cannot instantiate me!");
     }
 
     // A generic method used to fill the row array with true statments depending
@@ -70,12 +71,13 @@ public class BoardUtils {
             return false;
         }
     }
-
-    public static int getCoordsAtPos(final String pos) {
-        return posToCoords.get(pos);
-    }
-
-    public static int getPosAtCoords(final int coordinate) {
-        return AlgNota[coordinate];
-    }
 }
+
+// public static int getCoordsAtPos(final String pos) {
+// return posToCoords.get(pos);
+// }
+
+// public static int getPosAtCoords(final int coordinate) {
+// return AlgNota[coordinate];
+// }
+// }
