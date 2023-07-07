@@ -1,5 +1,9 @@
 package com.chess.engine.board;
 
+import java.util.Map;
+
+import javax.swing.text.Position;
+
 public class BoardUtils {
 
     // Creates a an array of boolean where the indexs of the array is used as the
@@ -20,19 +24,21 @@ public class BoardUtils {
     public static final boolean[] SecondRank = intRow(48);
     public static final boolean[] FirstRank = intRow(56);
 
+    public static final String[] AlgNota = makeAlgNota();
+    public static final Map<String, Integer> posToCoords = makePosToCoordsMap();
+
     public static final int numTitles = 64;
     public static final int numTitlesPerRow = 8;
 
     // Somthing or other idk idk
     private BoardUtils() {
-        throw new RuntimeException("You cannot instantiate me!");
+        throw new Runtimeexception("You cannot instantiate me!");
     }
 
     // A generic method used to fill the row array with true statments depending
     // on which row is used
     private static boolean[] intRow(int rowNum) {
         final boolean[] row = new boolean[numTitles];
-
         do {
             row[rowNum] = true;
             rowNum++;
@@ -63,5 +69,13 @@ public class BoardUtils {
         } else {
             return false;
         }
+    }
+
+    public static int getCoordsAtPos(final String pos) {
+        return posToCoords.get(pos);
+    }
+
+    public static int getPosAtCoords(final int coordinate) {
+        return AlgNota[coordinate];
     }
 }

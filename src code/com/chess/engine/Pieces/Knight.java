@@ -32,7 +32,11 @@ public class Knight extends Piece {
     private final static int[] possibleCoordsOffsets = { -17, -15, -10, -6, 6, 10, 15, 17 };
 
     public Knight(final int pieceCoords, final Alliance pieceSide) {
-        super(PieceType.KNIGHT, pieceCoords, pieceSide);
+        super(PieceType.KNIGHT, pieceCoords, pieceSide, true);
+    }
+
+    public Knight(final int pieceCoords, final Alliance pieceSide, final boolean isFirstMove) {
+        super(PieceType.KNIGHT, pieceCoords, pieceSide, isFirstMove);
     }
 
     // Creates a collection of Moves that the knight can do based of its current

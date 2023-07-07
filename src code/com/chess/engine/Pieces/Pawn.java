@@ -9,17 +9,10 @@ import com.chess.engine.board.Board;
 import com.chess.engine.board.BoardUtils;
 import com.chess.engine.board.Move;
 import com.chess.engine.board.Move.MajorMove;
+import com.chess.engine.board.Move.PawnJump;
+import com.chess.engine.board.Move.PawnAtkMove;
 
 public class Pawn extends Piece {
-
-    public void check() {
-        boolean condition;
-        do {
-            System.out.println(getClass());
-            condition = false;
-        } while (condition);
-
-    }
 
     // if we image a 8X8 board with the top left being 1 counting left to right then
     // these numbers
@@ -29,8 +22,12 @@ public class Pawn extends Piece {
     // possibleCoordsOffsets(i)
     private final static int[] possibleCoordsOffsets = { 8, 16, 7, 9 };
 
-    public Pawn(int pieceCoords, final Alliance pieceSide) {
-        super(PieceType.PAWN, pieceCoords, pieceSide);
+    public Pawn(final int pieceCoords, final Alliance pieceSide) {
+        super(PieceType.PAWN, pieceCoords, pieceSide, true);
+    }
+
+    public Pawn(final int pieceCoords, final Alliance pieceSide, final boolean isFirstMove) {
+        super(PieceType.PAWN, pieceCoords, pieceSide, isFirstMove);
     }
 
     @Override
@@ -48,14 +45,15 @@ public class Pawn extends Piece {
                 // TODO more work to be done here
                 legalMoves.add(new MajorMove(board, this, possibleNextMoveCoords));
 
-            } else if (currentOffset == 16 && this.isFirstMove() && (BoardUtils.SeventhRank[this.pieceCoords])
-                    && this.getPieceSide().isBlack()
-                    || BoardUtils.SecondRank[this.pieceCoords] && this.getPieceSide().isWhite()) {
+            } else if (currentOffset == 16 && this.isFirstMove()
+                    && ((BoardUtils.SeventhRank[this.pieceCoords] && this.getPieceSide().isBlack())
+                            || (BoardUtils.SecondRank[this.pieceCoords] && this.getPieceSide().isWhite()))) {
                 final int behindPossibleNextMoveCoords = this.pieceCoords + (this.pieceSide.getDirection() * 8);
 
                 if (!board.getTile(behindPossibleNextMoveCoords).isTileOccupied()
                         && !board.getTile(possibleNextMoveCoords).isTileOccupied()) {
-                    legalMoves.add(new MajorMove(board, this, possibleNextMoveCoords));
+
+                    legalMoves.add(new PawnJump(board, this, possibleNextMoveCoords));
                 }
 
             } else if (currentOffset == 7 && !(BoardUtils.EightthColumn[this.pieceCoords] && this.pieceSide.isWhite())
@@ -65,7 +63,7 @@ public class Pawn extends Piece {
 
                     if (pieceOnPossibleTile.getPieceSide() != this.pieceSide) {
                         // TODO more work to be done here
-                        legalMoves.add(new MajorMove(board, this, possibleNextMoveCoords));
+                        legalMoves.add(new PawnAtkMove(board, this, possibleNextMoveCoords, pieceOnPossibleTile));
                     }
                 }
 
@@ -76,7 +74,7 @@ public class Pawn extends Piece {
 
                     if (pieceOnPossibleTile.getPieceSide() != this.pieceSide) {
                         // TODO more work to be done here
-                        legalMoves.add(new MajorMove(board, this, possibleNextMoveCoords));
+                        legalMoves.add(new PawnAtkMove(board, this, possibleNextMoveCoords, pieceOnPossibleTile));
                     }
                 }
             }
@@ -90,7 +88,7 @@ public class Pawn extends Piece {
     }
 
     public boolean isFirstMove() {
-        return false;
+        return true;
     }
 
     @Override

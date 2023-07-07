@@ -31,8 +31,12 @@ public class Queen extends Piece {
     // possibleCoordsOffsets(i)
     private final static int[] possibleCoordsOffsets = { -9, -8, -7, -1, 9, 8, 7, 1 };
 
-    public Queen(int pieceCoords, Alliance pieceSide) {
-        super(PieceType.QUEEN, pieceCoords, pieceSide);
+    public Queen(final int pieceCoords, final Alliance pieceSide) {
+        super(PieceType.QUEEN, pieceCoords, pieceSide, true);
+    }
+
+    public Queen(final int pieceCoords, final Alliance pieceSide, final boolean isFirstMove) {
+        super(PieceType.QUEEN, pieceCoords, pieceSide, isFirstMove);
     }
 
     // Creates a collection of Moves that the Queen can do based of its current
@@ -89,7 +93,9 @@ public class Queen extends Piece {
                 }
             }
         }
+
         return Collections.unmodifiableCollection(legalMoves);
+
     }
 
     @Override

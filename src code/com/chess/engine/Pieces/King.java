@@ -22,8 +22,12 @@ public class King extends Piece {
     // possibleCoordsOffsets(i)
     private final static int[] possibleCoordsOffsets = { 1, 7, 8, 9, -1, -7, -8, -9 };
 
-    public King(int pieceCoords, Alliance pieceSide) {
-        super(PieceType.KING, pieceCoords, pieceSide);
+    public King(final int pieceCoords, final Alliance pieceSide) {
+        super(PieceType.KING, pieceCoords, pieceSide, true);
+    }
+
+    public King(final int pieceCoords, final Alliance pieceSide, final boolean isFirstMove) {
+        super(PieceType.KING, pieceCoords, pieceSide, isFirstMove);
     }
 
     // Creates a collection of Moves that the King can do based of its current

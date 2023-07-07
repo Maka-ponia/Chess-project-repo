@@ -46,10 +46,9 @@ public class BlackPlayer extends Player {
                 if (rookTile.isTileOccupied() && rookTile.getPiece().isFirstMove()) {
                     if (Player.calcAtkOnTile(5, oppLegals).isEmpty() && Player.calcAtkOnTile(6, oppLegals).isEmpty()
                             && rookTile.getPiece().getPieceType().isRook()) {
-
+                        kingCastle.add(new kingSideCastleMove(this.board, this.playerKing, 6,
+                                (Rook) (rookTile.getPiece()), rookTile.getTileCoords(), 5));
                     }
-                    kingCastle.add(new kingSideCastleMove(this.board, this.playerKing, 6,
-                            (Rook) (rookTile.getPiece()), rookTile.getTileCoords(), 5));
                 }
             }
             if (!this.board.getTile(1).isTileOccupied() && !this.board.getTile(2).isTileOccupied()
@@ -64,7 +63,6 @@ public class BlackPlayer extends Player {
                 }
             }
         }
-
         return Collections.unmodifiableCollection(kingCastle);
     }
 }

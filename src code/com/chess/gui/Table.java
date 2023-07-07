@@ -306,6 +306,7 @@ public class Table {
             if (highlightLegalMoves) {
                 for (final Move move : pieceLegalMoves(board)) {
                     if (move.getNextMoveCoords() == this.tileId) {
+
                         try {
                             add(new JLabel(
                                     new ImageIcon(ImageIO.read(new File("src code/misc-art/green_dot.png")))));
