@@ -1,4 +1,5 @@
-package com.chess.engine.pieces;
+
+package com.chess.engine.Pieces;
 
 import java.util.ArrayList;
 import java.util.Collection;

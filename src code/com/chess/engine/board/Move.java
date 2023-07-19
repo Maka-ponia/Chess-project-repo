@@ -1,10 +1,11 @@
 package com.chess.engine.board;
 
+import com.chess.engine.Pieces.Pawn;
+import com.chess.engine.Pieces.Piece;
+import com.chess.engine.Pieces.Rook;
 import com.chess.engine.board.Board.Builder;
 import com.chess.engine.board.Move.castleMove.nullMove;
-import com.chess.engine.pieces.Pawn;
-import com.chess.engine.pieces.Piece;
-import com.chess.engine.pieces.Rook;
+
 
 public abstract class Move {
     protected final Board board;
@@ -106,7 +107,7 @@ public abstract class Move {
 
             @Override
             public String toString(){
-                retrun movedPiece.getPieceType().toString() + BoardUtils.getPosAtCoords(this.destinaionCoords);
+                return movedPiece.getPieceType().toString() + BoardUtils.getPosAtCoords(this.destinaionCoords);
             }
         }
     }
